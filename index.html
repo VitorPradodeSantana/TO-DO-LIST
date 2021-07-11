@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .header{
+            grid-area: header;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: rgb(46, 5, 70);
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-align: center;
+            padding-top: 36px;
+            background-image:  linear-gradient(to right, #aaffa9, #11ffbd); 
+        }
+
+        .main{
+            grid-area: main;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+        }
+        
+        .footer{
+            grid-area: footer;
+        }
+
+
+        .container{
+            display: grid;
+            grid-template-columns: 0.5fr 1fr 0.5fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-areas: 
+            "header header header"
+            ". main ."
+            "footer footer footer";
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td{
+            padding: 4px;
+        }
+
+        .main .formulario{
+            display: flex !important;
+            flex-direction: column;
+        }
+
+       .formulario .novaTarefa{
+           display: flex;
+           margin-bottom: 32px;
+           width: 193px;
+       }
+
+       .formulario .labelNovaTarefa{
+           font: 'Courier New', Courier, monospace;
+           font-size: 32px;
+       }
+
+       .formulario{
+           width: 100%;
+       }
+
+       .formulario input{
+           float: left;
+           width: 80%;
+           padding: 8px;
+           border: 1px solid black;
+           border-right: none;
+       }
+
+       .formulario button{
+          float: right;
+          width: 20%;
+          border: 1px solid black;
+          border-left: none;
+       }    
+
+       .formulario button:hover{
+           background-color:rgb(222, 220, 220);
+       }
+
+       
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>To-do List</h1>
+        </header>
+        <main class="main">
+            <div class="formulario">
+                <label for="novaTarefa" class="labelNovaTarefa">Nova Tarefa</label>
+                <div class="novaTarefa">
+                    <input type="text" id="entradaNovaTarefa" name="novaTarefa">
+                    <button id="botao" type="submit">+</button>
+                </div>
+            </div>
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <td>Nova Tarefa</td>
+                        <td>Métodos</td>
+                    </tr>
+                </thead>
+                <tbody class="corpoTabela">
+
+                </tbody>
+            </table>
+        </main>
+    </div>
+    <footer class="footer">
+
+    </footer>
+    <script>
+        const botao = document.querySelector('#botao');
+
+        botao.addEventListener('click', function(){
+            const input = document.querySelector('#entradaNovaTarefa').value;
+            const corpoTabela = document.querySelector('.corpoTabela');
+            const novaLinha = corpoTabela.insertRow();
+            const novaCelula = novaLinha.insertCell(0);
+            const botaoExcluir = novaLinha.insertCell(1);
+            botaoExcluir.innerHTML = '<button class="botao" onclick=deleteLinha(this)>Excluir</button>'
+
+            let newText  = document.createTextNode(input);
+            novaCelula.appendChild(newText);
+        });
+
+        
+        function deleteLinha(){
+            const botao = document.querySelector('.botao');
+            var linha = botao.parentNode.parentNode;
+            console.log(linha);
+            linha.parentNode.removeChild(linha);
+        };
+    </script>
+</body>
+</html>
